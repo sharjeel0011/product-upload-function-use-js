@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin-left: 30px;
+        }
+        .container {
+            width: 1300px;
+            height: 500px;
+            /* border: 1px solid #333; */
+            display: flex;
+            direction: row;
+            flex-wrap: wrap;
+            box-shadow: 15px 15px 15px 0px rgb(123, 122, 122);
+            
+        }
+
+        .container2 {
+            width: 1300px;
+            height: 100px;
+            background-color: rgb(188, 188, 204);
+            box-shadow: 15px 15px 15px 0px rgb(128, 127, 127);
+            
+
+        }
+
+        .products {
+            width: 130px;
+            height: 330px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 5px 5px 5px 0px rgb(144, 143, 143);
+        }
+
+        .products img {
+            width: 125px;
+            height: 150px;
+        }
+
+        .products button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        #same {
+            display: flex;
+            direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form {
+            margin-top: 3%;
+            width: 200PX;
+            height: 25PX;
+            border-radius: 30PX;
+            gap: 10PX;
+            border: none;
+        }
+
+        #buttons {
+            background-color: rgb(16, 132, 255);
+            width: 70px;
+            height: 30px;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+
+        }
+
+        #buttons:hover {
+            background-color: rgb(16, 210, 16);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"></div>
+    <div class="container2">
+        <form onsubmit="addproduct(event)">
+            <input  id="img" type="file" placeholder="select img" accept="image/*">
+            <input class="form" id="titel" type="text" placeholder="title">
+            <input class="form" id="price" type="number" placeholder="price">
+            <input class="form" id="discountPrice" type="number" placeholder="discount price">
+            <button id="buttons" type="submit">Submit</button>
+        </form>
+
+    </div>
+    <script>
+        function addproduct(event) {
+            event.preventDefault()
+            //img ka url is terha create ho ga out side se lee k lye 
+            //id select ker k img me type file ker a he then imgInput.file[0] ker de ge
+            const imgInput = document.getElementById("img");
+            const imgFile = imgInput.files[0];
+            const img = URL.createObjectURL(imgFile)
+            const titel = document.getElementById("titel").value
+            const price = document.getElementById("price").value
+            const discountPrice = document.getElementById("discountPrice").value
+            const productDiv = document.createElement("div")
+            productDiv.innerHTML = `
+            <div class="products">
+            <img src="${img}" alt="" width="120px" height="120px">
+            <h3>${titel}</h3>
+            <p><s>Rs.${price}</s></p>
+          <div id="same">
+            <p>Only</p>
+            <h2>${discountPrice}</h2> 
+            </div>
+            <button>Add to Cart</button>
+        </div>            
+          `
+            document.querySelector(".container").appendChild(productDiv)
+
+            imgInput.value = "";
+            document.getElementById("titel").value = "";
+            document.getElementById("price").value = "";
+            document.getElementById("discountPrice").value = "";
+
+        }
+    </script>
+</body>
+
+</html>
